@@ -5,16 +5,16 @@ let section = document.querySelector("#section");
 
 let sec;
 let title;
-var min;
+let min;
 
-let bell = new Audio("./audios/audio_bell.mp3");
+let song_pause = new Audio("./audios/song_pause.mp3");
 let back = new Audio("./audios/audio_volta.mp3");
 let final = new Audio("./audios/audio_final.mp3");
+let long_pause = new Audio("./audios/long_pause.mp3");
 
 let music = document.querySelector("#music");
 let iconPlay = document.querySelector("#icon-play");
 let iconPause = document.querySelector("#icon-pause");
-
 
 
 function start() {
@@ -31,7 +31,7 @@ function start() {
         document.querySelector('#error-section').innerHTML ='Adicione as sessões'
         section.focus();
       } else {
-        // music.play()
+        music.play()
         iconPause.style.setProperty('display', 'block', 'important')
 
         localStorage.setItem('action', String(action.value))
@@ -52,29 +52,27 @@ function momentAction () {
   let value_sections = localStorage.getItem('section')
   let title_section = document.querySelector('#title_section')
   if( value_sections != '1') {
-    title_section.innerHTML =  `${value_sections} sessões restantes`
+    title_section.innerHTML =  `${value_sections} sessions remaining`
   } else {
-    title_section.innerHTML = `${value_sections} sessão restante`
+    title_section.innerHTML = `${value_sections} session remaining`
   }
 
   title = document.querySelector('#title_timer')
   title.innerHTML= 'WORK'
 
 
-  title.style.fontSize = '25px'
-  title.style.fontWeight = 'bold'
-  title.style.setProperty('color', '#28a745', 'important')
+  title.classList.add("title-work")
 
  min = Number(localStorage.getItem('action'))
 
   min -= 1
   sec = 59
 
-  document.querySelector('#minutes').innerHTML = min
+  document.querySelector('#minutes').innerHTML = min 
   document.querySelector('#seconds').innerHTML = sec
 
-  var minInterval = setInterval(minTimer, 60000)
-  var secInterval = setInterval(secTimer, 1000)
+  let minInterval = setInterval(minTimer, 60000)
+  let secInterval = setInterval(secTimer, 1000)
 
     function minTimer() {
       min -= 1
@@ -91,10 +89,10 @@ function momentAction () {
           clearInterval(secInterval)
 
           if(value_sections > 1) {
-            bell.play()
-
+            song_pause.play()
             momentPause()
           } else {
+            long_pause.play()
             momentLongPause()
           }
 
@@ -102,6 +100,7 @@ function momentAction () {
         }
         sec = 60
       }
+
 
      
     }
@@ -114,10 +113,8 @@ function momentAction () {
 function momentPause() {
 title = document.querySelector('#title_timer')
   title.innerHTML= 'PAUSE'
+  title.classList.add("title-pause")
 
-  title.style.fontSize = '25px'
-  title.style.fontWeight = 'bold'
-  title.style.setProperty('color', '#dc3543', 'important')
 
   min_pause = Number(localStorage.getItem('pause'))
 
@@ -128,8 +125,8 @@ title = document.querySelector('#title_timer')
   document.querySelector('#minutes').innerHTML = min_pause
   document.querySelector('#seconds').innerHTML = sec_pause
 
-  var minInterval = setInterval(minTimer, 60000)
-  var secInterval = setInterval(secTimer, 1000)
+  let minInterval = setInterval(minTimer, 60000)
+  let secInterval = setInterval(secTimer, 1000)
 
   function minTimer() {
     min_pause -= 1
@@ -163,23 +160,21 @@ function momentLongPause () {
 
   title = document.querySelector('#title_timer')
   title.innerHTML= 'LONG'
+  title.classList.add("title-long-pause")
 
-  title.style.fontSize = '25px'
-  title.style.fontWeight = 'bold'
-  title.style.setProperty('color', '#28a745', 'important')
 
   min_long = Number(localStorage.getItem('long_pause'))
 
 
   min_long -= 1
-  sec_long = 59
+  sec = 59
 
   document.querySelector('#minutes').innerHTML = min_long
 
-  document.querySelector('#seconds').innerHTML = sec_long
+  document.querySelector('#seconds').innerHTML = sec
 
-  var minInterval = setInterval(minTimer, 60000)
-  var secInterval = setInterval(secTimer, 1000)
+  let minInterval = setInterval(minTimer, 60000)
+  let secInterval = setInterval(secTimer, 1000)
 
     function minTimer() {
       min_long -= 1
@@ -187,10 +182,10 @@ function momentLongPause () {
     }
 
     function secTimer() {
-      sec_long -= 1
-      document.querySelector('#seconds').innerHTML = sec_long
+      sec -= 1
+      document.querySelector('#seconds').innerHTML = sec
 
-      if(sec_long <= 0 ) {
+      if(sec <= 0 ) {
         if(min_long <= 0) {
           clearInterval(minInterval)
           clearInterval(secInterval)
@@ -209,20 +204,35 @@ function momentLongPause () {
 }
 
 
-function resetTimer () {
+// function resetTimer () {
 
-  // let teste = document.querySelector('#title_timer')
-  // console.log(teste)
 
-  // if(title === 'WORK' ) {
-  //   console.log('entrou')
 
-    // min = Number(localStorage.getItem('action'))
+//   if(title.innerHTML === 'WORK' ) {
+    
 
-    // min -= 1
-    // sec = 59
+//     min = Number(localStorage.getItem('action'))
+
+//     min -= 1
+//     sec = 59
   
-    // document.querySelector('#minutes').innerHTML = min
-    // document.querySelector('#seconds').innerHTML = sec
-  // }
+//     document.querySelector('#minutes').innerHTML = min
+//     document.querySelector('#seconds').innerHTML = sec
+//   }
+// }
+
+
+
+function pauseMusic(){
+  music.pause()
+  iconPlay.style.setProperty('display', 'flex', 'important')
+  iconPause.style.setProperty('display', 'none', 'important')
 }
+
+
+function executeMusic(){
+  music.play()
+  iconPlay.style.setProperty('display', 'none', 'important')
+  iconPause.style.setProperty('display', 'flex', 'important')
+}
+

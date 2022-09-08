@@ -30,10 +30,10 @@
       <a class="navbar-logo" href="#">Pomodoro</a>
 
       <div class="buttons-music">
-        <a> <i id="icon-play" class="fa-solid fa-play"></i></a>
-        <a> <i id="icon-pause" class="fa-solid fa-pause"></i></a>
-        <audio id="music">
-          <source src="./audios/lo-fi.mp3" type="audio/mpeg" />
+        <a onclick="executeMusic()"> <i id="icon-play" class="fa-solid fa-play"></i></a>
+        <a onclick="pauseMusic()"> <i id="icon-pause" class="fa-solid fa-pause"></i></a>
+        <audio id="music" loop>
+          <source src="./audios/music1.mp3" type="audio/mpeg" />
         </audio>
       </div>
     </nav>
@@ -46,7 +46,7 @@
                 <div class="row d-flex justify-content-center">
                   <div class="col-md-3">
                     <div class="form-group">
-                      <label class="label-count" for="acao">Ação</label>
+                      <label class="label-count" for="acao">WORK</label>
                       <input
                         type="number"
                         class="form-control form-control-lg border-0 shadow input-count"
@@ -58,11 +58,12 @@
                   </div>
                   <div class="col-md-3">
                     <div class="form-group">
-                      <label class="label-count" for="pause">Pausa</label>
+                      <label class="label-count" for="pause">PAUSE</label>
                       <input
                         type="number"
                         class="form-control form-control-lg border-0 shadow input-count"
                         id="pause"
+                        value="5"
                       />
                       <small class="text-danger" id="error-pause"></small>
                     </div>
@@ -70,11 +71,12 @@
 
                   <div class="col-md-3">
                     <div class="form-group">
-                      <label class="label-count" for="long_pause">Pausa Longa</label>
+                      <label class="label-count" for="long_pause">LONG PAUSE</label>
                       <input
                         type="number"
                         class="form-control form-control-lg border-0 shadow input-count"
                         id="long_pause"
+                        value="15"
                       />
                       <small class="text-danger" id="error-long-pause"></small>
                     </div>
@@ -82,11 +84,12 @@
                   
                   <div class="col-md-3">
                     <div class="form-group">
-                      <label class="label-count" for="section">Sessões</label>
+                      <label class="label-count" for="section">SECTIONS</label>
                       <input
                         type="number"
                         class="form-control form-control-lg border-0 shadow input-count"
                         id="section"
+                        value="4"
                       />
                       <small class="text-danger" id="error-section"></small>
                     </div>
@@ -105,36 +108,25 @@
         </div>
 
         <div id="timer" >
-          <div class="row mb-3">
+          <div class="row mb-3 ">
             <div class="col">
-              <h3 id="title_timer" class="text-center"></h3>
+              <h3 class="title_actions" id="title_timer"></h3>
             </div>
           </div>
 
-          <div class="row shadow time">
-            <div class="col-5 p-0">
+          <div class="row time">
+            <div class="col-4 number">
               <h2 id="minutes"></h2>
             </div>
             <div class="col-1 p-0 d-flex justify-content-center">
-              <h2>:</h2>
+              <h2 id="points">:</h2>
             </div>
-            <div class="col-5 pl-0">
+            <div class="col-4 pl-0 number seconds">
               <h2 id="seconds"></h2>
             </div>
           </div>
 
-          <div class="row mt-1">
-            <div class="col-4">
-              <button>Pause</button>
-            </div>
-            <div class="col-4">
-              <button>Continue</button>
-            </div>
-            <div class="col-4">
-              <button  onclick="resetTimer()">Reset</button>
-            </div>
-          </div>
-
+     
           <div class="row mt-5">
             <div class="col">
               <h3 id="title_section" class="text-center text-secondary"></h3>
@@ -144,11 +136,13 @@
 
         <div id="end">
           <h1 class="text-success text-center">Parabéns! Você finalizou suas tarefas.</h1>
-          <div class="row mt-5 mb-5 d-flex justify-content-center">
-             <div class="col-md-9 d-flex justify-content-center">
-                <a href="./index.html" class="btn btn-danger shadow btn-lg">Inicio</a>
-             </div>
+  
+
+        
+              <a href="./index.html" class="btn btn-danger shadow btn-lg">Inicio</a>
+ 
           </div>
+       
        </div>
       </div>
     </main>

@@ -147,6 +147,7 @@ title = document.querySelector('#title_timer')
         clearInterval(secInterval)
 
         back.play()
+        title.classList.remove("title-pause")
         momentAction()
       }
       sec_pause = 60
